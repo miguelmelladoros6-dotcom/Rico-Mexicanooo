@@ -1,0 +1,2110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rico Mexicano – Restaurante Mexicano en Los Alcázares, Murcia | Cocina Tradicional</title>
+  <meta name="description" content="Disfruta la mejor cocina mexicana en Los Alcázares, Murcia. Más de 40 platillos tradicionales, ambiente familiar, música y precio accesible. Desde 20€. ¡Reserva tu mesa hoy!" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Oswald:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --rojo:       #C0392B;
+      --rojo-deep:  #96281B;
+      --verde:      #27AE60;
+      --verde-deep: #1E8449;
+      --beige:      #F5E6C8;
+      --beige-dark: #E8D4A2;
+      --tierra:     #A0522D;
+      --negro:      #1A1208;
+      --negro-suave:#2C1A0A;
+      --crema:      #FDF6E3;
+      --dorado:     #D4AF37;
+      --dorado-light:#F0CC55;
+      --blanco:     #FFFDF7;
+
+      --ff-display: 'Playfair Display', Georgia, serif;
+      --ff-body:    'Libre Baskerville', Georgia, serif;
+      --ff-accent:  'Oswald', sans-serif;
+
+      --shadow-lg: 0 20px 60px rgba(26,18,8,0.35);
+      --shadow-md: 0 8px 30px rgba(26,18,8,0.2);
+      --shadow-sm: 0 3px 12px rgba(26,18,8,0.12);
+
+      --radius: 4px;
+      --transition: 0.35s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff-body);
+      background: var(--negro);
+      color: var(--beige);
+      overflow-x: hidden;
+      line-height: 1.7;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* ===== SCROLLBAR ===== */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--negro); }
+    ::-webkit-scrollbar-thumb { background: var(--rojo); border-radius: 3px; }
+
+    /* ===== UTILITY ===== */
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    .section-tag {
+      font-family: var(--ff-accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      display: inline-block;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--ff-display);
+      font-weight: 900;
+      line-height: 1.12;
+    }
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .divider::before, .divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+    }
+    .divider span {
+      font-size: 1.2rem;
+      color: var(--dorado);
+    }
+
+    /* ===== FADE-IN ANIMATION ===== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ===== NAVBAR ===== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 900;
+      padding: 18px 0;
+      transition: background var(--transition), padding var(--transition), box-shadow var(--transition);
+    }
+    #navbar.scrolled {
+      background: rgba(26,18,8,0.97);
+      padding: 10px 0;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-logo {
+      font-family: var(--ff-display);
+      font-weight: 900;
+      font-size: 1.55rem;
+      color: var(--dorado);
+      letter-spacing: -0.02em;
+    }
+    .nav-logo span { color: var(--rojo); }
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-links a {
+      font-family: var(--ff-accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--beige);
+      opacity: 0.85;
+      transition: color var(--transition), opacity var(--transition);
+    }
+    .nav-links a:hover { color: var(--dorado); opacity: 1; }
+    .nav-cta {
+      background: var(--rojo) !important;
+      color: var(--blanco) !important;
+      padding: 9px 22px;
+      border-radius: var(--radius);
+      opacity: 1 !important;
+      transition: background var(--transition) !important;
+    }
+    .nav-cta:hover { background: var(--rojo-deep) !important; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+    }
+    .hamburger span {
+      width: 26px; height: 2px;
+      background: var(--beige);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(26,18,8,0.98);
+      z-index: 800;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--ff-display);
+      font-size: 2rem;
+      color: var(--beige);
+      font-weight: 700;
+    }
+    .mobile-menu a:hover { color: var(--dorado); }
+    .mobile-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      font-size: 2rem;
+      color: var(--beige);
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* ===== HERO ===== */
+    #hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 70% 40%, rgba(192,57,43,0.25) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(39,174,96,0.15) 0%, transparent 50%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath fill='%23D4AF37' fill-opacity='0.04' d='M40 0 L80 40 L40 80 L0 40 Z'/%3E%3C/svg%3E"),
+        linear-gradient(160deg, #2C1A0A 0%, #1A1208 60%, #0D0905 100%);
+      background-size: auto, auto, 80px 80px, auto;
+    }
+    /* Decorative aztec-inspired border top */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--verde), var(--dorado), var(--rojo), var(--dorado), var(--verde));
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 760px;
+    }
+    .hero-eyebrow {
+      font-family: var(--ff-accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--verde);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      width: 40px; height: 1px;
+      background: var(--verde);
+    }
+    .hero-title {
+      font-family: var(--ff-display);
+      font-size: clamp(3rem, 7vw, 6.5rem);
+      font-weight: 900;
+      line-height: 0.95;
+      color: var(--blanco);
+      margin-bottom: 28px;
+    }
+    .hero-title .highlight {
+      color: var(--rojo);
+      font-style: italic;
+      display: block;
+    }
+    .hero-title .gold { color: var(--dorado); }
+    .hero-subtitle {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--beige);
+      opacity: 0.85;
+      max-width: 540px;
+      margin-bottom: 40px;
+      line-height: 1.75;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 56px;
+    }
+    .btn-primary {
+      font-family: var(--ff-accent);
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: var(--rojo);
+      color: var(--blanco);
+      padding: 16px 36px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 6px 24px rgba(192,57,43,0.4);
+    }
+    .btn-primary:hover {
+      background: var(--rojo-deep);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(192,57,43,0.5);
+    }
+    .btn-secondary {
+      font-family: var(--ff-accent);
+      font-size: 0.9rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--dorado);
+      padding: 15px 34px;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--dorado);
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-secondary:hover {
+      background: var(--dorado);
+      color: var(--negro);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+    }
+    .stat-num {
+      font-family: var(--ff-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--dorado);
+      line-height: 1;
+    }
+    .stat-label {
+      font-family: var(--ff-accent);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--beige);
+      opacity: 0.65;
+      margin-top: 4px;
+    }
+    .hero-badge {
+      position: absolute;
+      right: 0; top: 50%;
+      transform: translateY(-50%);
+      width: 180px; height: 180px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--rojo);
+      border-radius: 50%;
+      box-shadow: 0 0 60px rgba(192,57,43,0.45);
+      animation: pulse-badge 3s ease-in-out infinite;
+      z-index: 2;
+    }
+    .hero-badge-price {
+      font-family: var(--ff-display);
+      font-size: 2.2rem;
+      font-weight: 900;
+      color: var(--blanco);
+      line-height: 1;
+    }
+    .hero-badge-label {
+      font-family: var(--ff-accent);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.85);
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .hero-badge-sub {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.7);
+      margin-top: 2px;
+    }
+    @keyframes pulse-badge {
+      0%, 100% { box-shadow: 0 0 40px rgba(192,57,43,0.4); }
+      50% { box-shadow: 0 0 80px rgba(192,57,43,0.7); }
+    }
+    @media (max-width: 900px) {
+      .hero-badge { display: none; }
+    }
+    @media (max-width: 600px) {
+      .hero-stats { gap: 24px; }
+    }
+
+    /* ===== STRIP / ANNOUNCEMENT BAR ===== */
+    .strip {
+      background: linear-gradient(90deg, var(--verde-deep), var(--verde), var(--verde-deep));
+      padding: 12px 0;
+      overflow: hidden;
+    }
+    .strip-inner {
+      display: flex;
+      gap: 60px;
+      animation: ticker 25s linear infinite;
+      white-space: nowrap;
+    }
+    .strip-item {
+      font-family: var(--ff-accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--blanco);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .strip-item span { color: var(--dorado-light); }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* ===== EXPERIENCIA ===== */
+    #experiencia {
+      padding: 100px 0;
+      background: var(--negro-suave);
+      position: relative;
+      overflow: hidden;
+    }
+    #experiencia::before {
+      content: 'RICO';
+      position: absolute;
+      right: -40px; top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--ff-display);
+      font-size: 18rem;
+      font-weight: 900;
+      color: rgba(212,175,55,0.03);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+    .exp-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+    .exp-text .section-title {
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      color: var(--blanco);
+      margin-bottom: 24px;
+    }
+    .exp-text .section-title em { color: var(--rojo); font-style: italic; }
+    .exp-text p {
+      color: var(--beige);
+      opacity: 0.8;
+      margin-bottom: 18px;
+      font-size: 1.02rem;
+    }
+    .exp-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .exp-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 18px;
+      background: rgba(212,175,55,0.05);
+      border: 1px solid rgba(212,175,55,0.1);
+      border-radius: 6px;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .exp-feature:hover {
+      border-color: rgba(212,175,55,0.3);
+      background: rgba(212,175,55,0.08);
+    }
+    .exp-feature-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .exp-feature-title {
+      font-family: var(--ff-accent);
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 3px;
+    }
+    .exp-feature-desc {
+      font-size: 0.83rem;
+      color: var(--beige);
+      opacity: 0.65;
+      line-height: 1.5;
+    }
+    .exp-visual {
+      position: relative;
+    }
+    .exp-img-wrap {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .exp-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background:
+        linear-gradient(135deg, rgba(192,57,43,0.3) 0%, rgba(39,174,96,0.2) 50%, rgba(212,175,55,0.2) 100%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 20px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+    }
+    .exp-badge-wrap {
+      position: absolute;
+      bottom: -20px; left: -20px;
+      background: var(--verde);
+      color: var(--blanco);
+      padding: 20px 24px;
+      border-radius: 6px;
+      box-shadow: var(--shadow-md);
+    }
+    .exp-badge-num {
+      font-family: var(--ff-display);
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .exp-badge-text {
+      font-family: var(--ff-accent);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+    @media (max-width: 900px) {
+      .exp-grid { grid-template-columns: 1fr; gap: 48px; }
+      .exp-features { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .exp-features { grid-template-columns: 1fr; }
+    }
+
+    /* ===== CARTA SECTIONS ===== */
+    .carta-section {
+      margin-bottom: 56px;
+    }
+    .carta-section-title {
+      font-family: var(--ff-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--dorado);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(212,175,55,0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .menu-especial-banner {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: linear-gradient(135deg, rgba(192,57,43,0.2), rgba(212,175,55,0.1));
+      border: 2px solid var(--rojo);
+      border-radius: 10px;
+      padding: 24px 32px;
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+    .me-badge {
+      font-family: var(--ff-display);
+      font-size: 3rem;
+      font-weight: 900;
+      color: var(--rojo);
+      line-height: 1;
+      white-space: nowrap;
+    }
+    .me-badge span {
+      font-size: 1rem;
+      font-family: var(--ff-accent);
+      letter-spacing: 0.1em;
+      color: var(--beige);
+      opacity: 0.7;
+    }
+    .me-content { flex: 1; }
+    .me-title {
+      font-family: var(--ff-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--dorado);
+      margin-bottom: 4px;
+    }
+    .me-desc {
+      font-size: 0.88rem;
+      color: var(--beige);
+      opacity: 0.7;
+    }
+    .buffet-item em {
+      color: var(--dorado);
+      font-style: normal;
+      font-family: var(--ff-accent);
+      font-size: 0.85em;
+    }
+
+    /* ===== BUFFET ===== */
+    #buffet {
+      padding: 100px 0;
+      background: var(--negro);
+      position: relative;
+    }
+    .buffet-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .buffet-header .section-title {
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      color: var(--blanco);
+    }
+    .buffet-header .section-title span { color: var(--rojo); }
+    .buffet-header p {
+      margin-top: 16px;
+      color: var(--beige);
+      opacity: 0.7;
+      max-width: 540px;
+      margin-inline: auto;
+    }
+    .buffet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .buffet-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212,175,55,0.12);
+      border-radius: 8px;
+      padding: 32px 28px;
+      transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .buffet-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--dorado));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .buffet-card:hover::before { transform: scaleX(1); }
+    .buffet-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(212,175,55,0.3);
+      box-shadow: var(--shadow-md);
+    }
+    .buffet-card-icon { font-size: 2.4rem; margin-bottom: 16px; }
+    .buffet-card-title {
+      font-family: var(--ff-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--dorado);
+      margin-bottom: 16px;
+    }
+    .buffet-items {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .buffet-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--beige);
+      opacity: 0.8;
+    }
+    .buffet-item::before {
+      content: '◆';
+      font-size: 0.4rem;
+      color: var(--rojo);
+      flex-shrink: 0;
+    }
+
+    /* ===== REVIEWS ===== */
+    #resenas {
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--negro-suave) 0%, var(--negro) 100%);
+    }
+    .reviews-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+    .reviews-header .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--blanco);
+    }
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .review-card {
+      background: rgba(212,175,55,0.04);
+      border: 1px solid rgba(212,175,55,0.1);
+      border-radius: 8px;
+      padding: 28px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .review-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .review-stars {
+      color: var(--dorado);
+      font-size: 1rem;
+      letter-spacing: 2px;
+      margin-bottom: 14px;
+    }
+    .review-text {
+      font-style: italic;
+      font-size: 0.95rem;
+      color: var(--beige);
+      opacity: 0.85;
+      line-height: 1.75;
+      margin-bottom: 18px;
+    }
+    .review-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .review-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--rojo), var(--verde));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--blanco);
+      flex-shrink: 0;
+    }
+    .review-name {
+      font-family: var(--ff-accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.08em;
+      color: var(--dorado);
+    }
+    .review-platform {
+      font-size: 0.7rem;
+      color: var(--beige);
+      opacity: 0.5;
+      margin-top: 1px;
+    }
+    .reviews-summary {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      padding: 32px;
+      background: rgba(212,175,55,0.06);
+      border: 1px solid rgba(212,175,55,0.15);
+      border-radius: 8px;
+    }
+    .review-big-num {
+      font-family: var(--ff-display);
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--dorado);
+      line-height: 1;
+    }
+    .review-big-label {
+      font-family: var(--ff-accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--beige);
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+    .review-big-stars { font-size: 1.3rem; color: var(--dorado); letter-spacing: 3px; }
+
+    /* ===== DIFERENCIACION ===== */
+    #diferenciacion {
+      padding: 100px 0;
+      background: var(--rojo-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    #diferenciacion::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse at 0% 50%, rgba(0,0,0,0.4) 0%, transparent 60%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Ccircle cx='30' cy='30' r='1.5' fill='%23ffffff' fill-opacity='0.06'/%3E%3C/svg%3E");
+    }
+    .dif-inner {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .dif-text .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--blanco);
+    }
+    .dif-text > p {
+      margin-top: 16px;
+      color: rgba(255,255,255,0.75);
+      font-size: 1rem;
+    }
+    .dif-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .dif-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      padding: 20px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 6px;
+      border-left: 3px solid var(--dorado);
+      transition: background var(--transition), transform var(--transition);
+    }
+    .dif-item:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateX(6px);
+    }
+    .dif-icon { font-size: 1.8rem; flex-shrink: 0; }
+    .dif-item-title {
+      font-family: var(--ff-accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dorado-light);
+      margin-bottom: 4px;
+    }
+    .dif-item-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.55;
+    }
+    @media (max-width: 900px) {
+      .dif-inner { grid-template-columns: 1fr; }
+    }
+
+    /* ===== CUSTOMER JOURNEY ===== */
+    #recorrido {
+      padding: 100px 0;
+      background: var(--negro-suave);
+    }
+    .journey-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+    .journey-header .section-title {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      color: var(--blanco);
+    }
+    .journey-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .journey-steps::before {
+      content: '';
+      position: absolute;
+      top: 56px; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--rojo), var(--dorado), var(--verde));
+      z-index: 0;
+    }
+    .step {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--negro);
+      border: 2px solid var(--dorado);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--ff-display);
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--dorado);
+      margin: 0 auto 20px;
+    }
+    .step:nth-child(1) .step-num { border-color: var(--rojo); color: var(--rojo); }
+    .step:nth-child(3) .step-num { border-color: var(--verde); color: var(--verde); }
+    .step:nth-child(5) .step-num { border-color: var(--verde-deep); color: var(--verde-deep); }
+    .step-icon { font-size: 2rem; margin-bottom: 12px; }
+    .step-title {
+      font-family: var(--ff-accent);
+      font-size: 0.85rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 8px;
+    }
+    .step-desc {
+      font-size: 0.82rem;
+      color: var(--beige);
+      opacity: 0.65;
+      line-height: 1.6;
+    }
+    @media (max-width: 768px) {
+      .journey-steps::before { display: none; }
+      .journey-steps { gap: 32px; }
+    }
+
+    /* ===== UBICACION ===== */
+    #ubicacion {
+      padding: 100px 0;
+      background: var(--negro);
+    }
+    .ubi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .ubi-text .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--blanco);
+      margin-bottom: 28px;
+    }
+    .ubi-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(212,175,55,0.1);
+      border-radius: 6px;
+    }
+    .ubi-detail-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .ubi-detail-label {
+      font-family: var(--ff-accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 4px;
+    }
+    .ubi-detail-value {
+      color: var(--beige);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    .ubi-map {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+    }
+    .ubi-map iframe {
+      width: 100%;
+      height: 400px;
+      border: none;
+      display: block;
+      filter: grayscale(30%) contrast(1.1);
+    }
+    .ubi-map-overlay {
+      position: absolute;
+      top: 16px; left: 16px;
+      background: var(--rojo);
+      color: var(--blanco);
+      padding: 10px 16px;
+      border-radius: 4px;
+      font-family: var(--ff-accent);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (max-width: 900px) {
+      .ubi-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===== CTA FINAL ===== */
+    #cta-final {
+      padding: 120px 0;
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(192,57,43,0.4) 0%, transparent 60%),
+        linear-gradient(180deg, var(--negro) 0%, #0D0905 100%);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #cta-final::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50 10 L90 50 L50 90 L10 50 Z' fill='none' stroke='%23D4AF37' stroke-opacity='0.04' stroke-width='1'/%3E%3C/svg%3E");
+      background-size: 100px 100px;
+    }
+    .cta-inner { position: relative; z-index: 1; }
+    .cta-title {
+      font-family: var(--ff-display);
+      font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 900;
+      color: var(--blanco);
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .cta-title span { color: var(--rojo); font-style: italic; }
+    .cta-subtitle {
+      font-size: 1.1rem;
+      color: var(--beige);
+      opacity: 0.75;
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+    .cta-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .btn-xl {
+      font-family: var(--ff-accent);
+      font-size: 1rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 18px 48px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .btn-xl-red {
+      background: var(--rojo);
+      color: var(--blanco);
+      box-shadow: 0 8px 32px rgba(192,57,43,0.45);
+    }
+    .btn-xl-red:hover {
+      background: var(--rojo-deep);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(192,57,43,0.55);
+    }
+    .btn-xl-gold {
+      background: transparent;
+      color: var(--dorado);
+      border: 1.5px solid var(--dorado);
+    }
+    .btn-xl-gold:hover {
+      background: var(--dorado);
+      color: var(--negro);
+      transform: translateY(-3px);
+    }
+    .cta-hours {
+      margin-top: 32px;
+      font-family: var(--ff-accent);
+      font-size: 0.8rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--beige);
+      opacity: 0.5;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #0D0905;
+      border-top: 1px solid rgba(212,175,55,0.1);
+      padding: 60px 0 30px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 40px;
+    }
+    .footer-brand-name {
+      font-family: var(--ff-display);
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--dorado);
+      margin-bottom: 8px;
+    }
+    .footer-brand-name span { color: var(--rojo); }
+    .footer-tagline {
+      font-size: 0.85rem;
+      color: var(--beige);
+      opacity: 0.55;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+    }
+    .social-btn {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      border: 1px solid rgba(212,175,55,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--beige);
+      transition: all var(--transition);
+    }
+    .social-btn:hover {
+      border-color: var(--dorado);
+      color: var(--dorado);
+      transform: translateY(-2px);
+    }
+    .footer-col-title {
+      font-family: var(--ff-accent);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 20px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      font-size: 0.88rem;
+      color: var(--beige);
+      opacity: 0.6;
+      transition: opacity var(--transition), color var(--transition);
+    }
+    .footer-col ul li a:hover { opacity: 1; color: var(--dorado); }
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 0.85rem;
+      color: var(--beige);
+      opacity: 0.65;
+    }
+    .footer-contact-item span:first-child { font-size: 1rem; flex-shrink: 0; }
+    .footer-bottom {
+      border-top: 1px solid rgba(212,175,55,0.08);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-bottom p {
+      font-size: 0.75rem;
+      color: var(--beige);
+      opacity: 0.35;
+    }
+    .footer-bottom-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--ff-accent);
+      font-size: 0.68rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--verde);
+      opacity: 0.6;
+    }
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    /* ===== WHATSAPP BUTTON ===== */
+    #wa-btn {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      z-index: 999;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 24px rgba(37,211,102,0.45);
+      transition: transform var(--transition), box-shadow var(--transition);
+      animation: wa-pulse 2.5s ease-in-out infinite;
+    }
+    #wa-btn:hover {
+      transform: scale(1.12);
+      box-shadow: 0 10px 36px rgba(37,211,102,0.6);
+      animation: none;
+    }
+    #wa-btn svg { width: 32px; height: 32px; fill: white; }
+    @keyframes wa-pulse {
+      0%, 100% { box-shadow: 0 6px 24px rgba(37,211,102,0.45); }
+      50% { box-shadow: 0 6px 36px rgba(37,211,102,0.7), 0 0 0 10px rgba(37,211,102,0.1); }
+    }
+    .wa-tooltip {
+      position: absolute;
+      right: 70px; top: 50%;
+      transform: translateY(-50%);
+      background: var(--negro);
+      color: var(--blanco);
+      padding: 8px 14px;
+      border-radius: 4px;
+      font-family: var(--ff-accent);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      box-shadow: var(--shadow-sm);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+    #wa-btn:hover .wa-tooltip { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- ===== NAVBAR ===== -->
+  <nav id="navbar">
+    <div class="container">
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">Rico <span>Mexicano</span></a>
+        <ul class="nav-links">
+          <li><a href="#experiencia">Nosotros</a></li>
+          <li><a href="#buffet">Nuestra Carta</a></li>
+          <li><a href="#resenas">Reseñas</a></li>
+          <li><a href="#ubicacion">Ubicación</a></li>
+          <li><a href="tel:+34631049004" class="nav-cta">📞 Llamar</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger" onclick="openMenu()">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <span class="mobile-close" onclick="closeMenu()">✕</span>
+    <a href="#experiencia" onclick="closeMenu()">Nosotros</a>
+    <a href="#buffet" onclick="closeMenu()">Nuestra Carta</a>
+    <a href="#resenas" onclick="closeMenu()">Reseñas</a>
+    <a href="#ubicacion" onclick="closeMenu()">Ubicación</a>
+    <a href="tel:+34631049004" style="color:var(--rojo)">📞 +34 631 04 90 04</a>
+  </div>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Los Alcázares, Murcia — Sabor auténtico de México</div>
+        <h1 class="hero-title">
+          El sabor que<br>
+          <span class="highlight">México merece</span>
+          <span class="gold">en tu mesa.</span>
+        </h1>
+        <p class="hero-subtitle">
+          Una carta con más de 40 platillos tradicionales preparados con sazón auténtico. 
+          Ven con familia, amigos o pareja y disfruta una experiencia gastronómica auténtica.
+        </p>
+        <div class="hero-actions">
+          <a href="tel:+34631049004" class="btn-primary">
+            📞 Reservar mesa
+          </a>
+          <a href="#buffet" class="btn-secondary">
+            🍽️ Ver la carta
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-num">40+</span>
+            <span class="stat-label">Platillos</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">20 €</span>
+            <span class="stat-label">Precio p.p.</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">4.8★</span>
+            <span class="stat-label">Calificación</span>
+          </div>
+          <div class="stat">
+            <span class="stat-num">5000+</span>
+            <span class="stat-label">Comensales</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-badge">
+        <div class="hero-badge-price">20 €</div>
+        <div class="hero-badge-label">Precio por persona</div>
+        <div class="hero-badge-sub">menú completo</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STRIP ===== -->
+  <div class="strip">
+    <div class="strip-inner">
+      <div class="strip-item">🌮 Cocina mexicana auténtica <span>·</span></div>
+      <div class="strip-item">🎵 Música en vivo <span>·</span></div>
+      <div class="strip-item">🍽️ Más de 40 platillos <span>·</span></div>
+      <div class="strip-item">👨‍👩‍👧 Ambiente familiar <span>·</span></div>
+      <div class="strip-item">📍 Los Alcázares, Murcia <span>·</span></div>
+      <div class="strip-item">⏰ Abierto hasta las 23:00 <span>·</span></div>
+      <div class="strip-item">💰 Desde 20 € <span>·</span></div>
+      <div class="strip-item">📶 Wi-Fi gratis <span>·</span></div>
+      <!-- Duplicate for seamless loop -->
+      <div class="strip-item">🌮 Cocina mexicana auténtica <span>·</span></div>
+      <div class="strip-item">🎵 Música en vivo <span>·</span></div>
+      <div class="strip-item">🍽️ Más de 40 platillos <span>·</span></div>
+      <div class="strip-item">👨‍👩‍👧 Ambiente familiar <span>·</span></div>
+      <div class="strip-item">📍 Los Alcázares, Murcia <span>·</span></div>
+      <div class="strip-item">⏰ Abierto hasta las 23:00 <span>·</span></div>
+      <div class="strip-item">💰 Desde 20 € <span>·</span></div>
+      <div class="strip-item">📶 Wi-Fi gratis <span>·</span></div>
+    </div>
+  </div>
+
+  <!-- ===== EXPERIENCIA ===== -->
+  <section id="experiencia">
+    <div class="container">
+      <div class="exp-grid">
+        <div class="exp-text fade-up">
+          <span class="section-tag">Nuestra historia</span>
+          <h2 class="section-title">Donde la cocina mexicana cobra <em>vida propia</em></h2>
+          <div class="divider"><span>✦</span></div>
+          <p>
+            Rico Mexicano no es solo un restaurante — es una celebración diaria de la gastronomía más 
+            rica de México. Cada platillo que servimos lleva el sazón auténtico de generaciones, 
+            preparado con ingredientes frescos y con el cariño que merece la cocina tradicional.
+          </p>
+          <p>
+            Nuestra carta cambia con las temporadas y los antojos del día, garantizando que cada visita 
+            sea una nueva experiencia de sabores. Tú decides cuánto comer — nosotros nos aseguramos 
+            de que no quieras parar.
+          </p>
+          <div class="exp-features">
+            <div class="exp-feature">
+              <div class="exp-feature-icon">🌽</div>
+              <div>
+                <div class="exp-feature-title">Ingredientes frescos</div>
+                <div class="exp-feature-desc">Preparamos todo del día para garantizar frescura y sabor</div>
+              </div>
+            </div>
+            <div class="exp-feature">
+              <div class="exp-feature-icon">🎵</div>
+              <div>
+                <div class="exp-feature-title">Música en vivo</div>
+                <div class="exp-feature-desc">Ambiente animado con música que ambienta cada visita</div>
+              </div>
+            </div>
+            <div class="exp-feature">
+              <div class="exp-feature-icon">🏠</div>
+              <div>
+                <div class="exp-feature-title">Comedor privado</div>
+                <div class="exp-feature-desc">Espacio exclusivo para grupos y celebraciones especiales</div>
+              </div>
+            </div>
+            <div class="exp-feature">
+              <div class="exp-feature-icon">📶</div>
+              <div>
+                <div class="exp-feature-title">Wi-Fi gratuito</div>
+                <div class="exp-feature-desc">Conéctate y comparte tu experiencia en el momento</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="exp-visual fade-up">
+          <div class="exp-img-wrap">
+            <div class="exp-img-placeholder">🌮</div>
+            <div class="exp-badge-wrap">
+              <div class="exp-badge-num">+5 años</div>
+              <div class="exp-badge-text">Sabor de México en Murcia</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CARTA ===== -->
+  <section id="buffet">
+    <div class="container">
+      <div class="buffet-header fade-up">
+        <span class="section-tag">Nuestra Carta</span>
+        <h2 class="section-title">La <span>carta</span> más auténtica de Los Alcázares</h2>
+        <p>Cocina mexicana, carnes a la parrilla, platos de la mar, cocina hindú y mucho más. Aquí hay algo para todos los gustos.</p>
+      </div>
+
+      <!-- MENU ESPECIAL 17,95 -->
+      <div class="menu-especial-banner fade-up">
+        <div class="me-badge">17,95€ <span>p.p.</span></div>
+        <div class="me-content">
+          <div class="me-title">Menú Especial</div>
+          <div class="me-desc">Entrantes + Segundo plato + Postre · Todo incluido por persona</div>
+        </div>
+        <a href="tel:+34631049004" class="btn-primary" style="flex-shrink:0;">📞 Reservar</a>
+      </div>
+
+      <!-- ANTIPASTI / STARTERS -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🥗</span> Antipasti / Entrantes</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: var(--verde)">
+            <div class="buffet-card-icon">🥗</div>
+            <div class="buffet-card-title">Antipasti</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Pan de ajo mexicano · <em>2,50€</em></div>
+              <div class="buffet-item">Aceitunas mixtas · <em>1,95€</em></div>
+              <div class="buffet-item">Sopa mexicana</div>
+              <div class="buffet-item">Mejillones al diavolo · <em>6,95€</em></div>
+              <div class="buffet-item">Gambas al ajillo · <em>11,95€</em></div>
+              <div class="buffet-item">Calamares a la romana · <em>5,95€</em></div>
+              <div class="buffet-item">Pulpo americano estilo · <em>6,95€</em></div>
+              <div class="buffet-item">Jalapeño relleno · <em>6,95€</em></div>
+              <div class="buffet-item">Escabeche mexicano · <em>6,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: var(--dorado)">
+            <div class="buffet-card-icon">🫕</div>
+            <div class="buffet-card-title">Entrantes (Menú Especial)</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Jalapeño relleno con queso cheddar</div>
+              <div class="buffet-item">Nachos de pollo o ternera</div>
+              <div class="buffet-item">Gambas rebozadas</div>
+              <div class="buffet-item">Alitas de pollo americano</div>
+              <div class="buffet-item">Tarta de pescado</div>
+              <div class="buffet-item">Pollo Tikka (hindú)</div>
+              <div class="buffet-item">Pakora de pollo (hindú)</div>
+              <div class="buffet-item">Cebolla Bhaji (hindú)</div>
+              <div class="buffet-item">Samosa de verduras (hindú)</div>
+              <div class="buffet-item">Pollo Tandoori (hindú)</div>
+              <div class="buffet-item">Gamba Puri (hindú)</div>
+              <div class="buffet-item">Ensalada del Chef</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NACHOS -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🌽</span> Nachos Mexicanos</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: var(--rojo)">
+            <div class="buffet-card-icon">🌽</div>
+            <div class="buffet-card-title">Nachos</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Nachos de pollo · <em>7,95€</em></div>
+              <div class="buffet-item">Nachos de ternera · <em>8,95€</em></div>
+              <div class="buffet-item">Nachos de veg · <em>7,95€</em></div>
+              <div class="buffet-item">Nachos Ranch · <em>7,95€</em></div>
+              <div class="buffet-item">Chili con carne · <em>7,95€</em></div>
+              <div class="buffet-item">Nachos Especiales Rico · <em>11,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: var(--rojo)">
+            <div class="buffet-card-icon">🥗</div>
+            <div class="buffet-card-title">Ensaladas</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Rico Chef Salad · <em>10,95€</em></div>
+              <div class="buffet-item">Ensalada Mexicana · <em>11,95€</em></div>
+              <div class="buffet-item">Ensalada Cobb · <em>12,95€</em></div>
+              <div class="buffet-item">Greek Salad · <em>9,95€</em></div>
+              <div class="buffet-item">Chicken Caesar Salad · <em>9,95€</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COMIDA MEXICANA -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🌮</span> Cocina Mexicana</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: var(--rojo)">
+            <div class="buffet-card-icon">🌮</div>
+            <div class="buffet-card-title">Fajitas Sizzling</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Fajitas de pollo · <em>13,95€</em></div>
+              <div class="buffet-item">Fajitas de ternera · <em>14,95€</em></div>
+              <div class="buffet-item">Fajitas de gambas · <em>14,95€</em></div>
+              <div class="buffet-item">Fajitas vegetal · <em>13,95€</em></div>
+              <div class="buffet-item">Fajitas combo · <em>16,95€</em></div>
+              <div class="buffet-item">Fiesta Fajitas (variadas) · <em>18,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: var(--rojo)">
+            <div class="buffet-card-icon">🌯</div>
+            <div class="buffet-card-title">Burritos Mexicanos</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Burrito de pollo · <em>13,95€</em></div>
+              <div class="buffet-item">Burrito de ternera · <em>14,95€</em></div>
+              <div class="buffet-item">Burrito de gambas · <em>14,95€</em></div>
+              <div class="buffet-item">Burrito vegetal · <em>13,95€</em></div>
+              <div class="buffet-item">Mix Burrito · <em>16,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: var(--rojo)">
+            <div class="buffet-card-icon">🫓</div>
+            <div class="buffet-card-title">Enchiladas & Chimichangas</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Enchilada de pollo · <em>13,95€</em></div>
+              <div class="buffet-item">Enchilada de ternera · <em>13,95€</em></div>
+              <div class="buffet-item">Enchilada de gambas · <em>14,95€</em></div>
+              <div class="buffet-item">Enchilada vegetal · <em>13,95€</em></div>
+              <div class="buffet-item">Mix Enchilada · <em>16,95€</em></div>
+              <div class="buffet-item">Chimichanga de pollo · <em>13,95€</em></div>
+              <div class="buffet-item">Chimichanga de ternera · <em>14,95€</em></div>
+              <div class="buffet-item">Chimichanga con carne · <em>14,95€</em></div>
+              <div class="buffet-item">Mix Chimichanga · <em>18,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: var(--rojo)">
+            <div class="buffet-card-icon">🫔</div>
+            <div class="buffet-card-title">Quesadillas & Tacos</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Quesadilla de pollo · <em>13,95€</em></div>
+              <div class="buffet-item">Quesadilla de ternera · <em>14,95€</em></div>
+              <div class="buffet-item">Quesadilla de gambas · <em>16,95€</em></div>
+              <div class="buffet-item">Quesadilla vegetal · <em>13,95€</em></div>
+              <div class="buffet-item">Mix Quesadilla · <em>18,95€</em></div>
+              <div class="buffet-item">Taco de pollo · <em>13,95€</em></div>
+              <div class="buffet-item">Taco de ternera · <em>13,95€</em></div>
+              <div class="buffet-item">Taco de gambas · <em>14,95€</em></div>
+              <div class="buffet-item">Mix Taco · <em>18,95€</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHILI -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🌶️</span> Chili & Platos Clásicos</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: var(--rojo)">
+            <div class="buffet-card-icon">🌶️</div>
+            <div class="buffet-card-title">Chili con Carne</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Chili con carne clásico · <em>14,95€</em></div>
+              <div class="buffet-item">Chili con carne con aguacate · <em>15,50€</em></div>
+              <div class="buffet-item">Extra salsas mexicanas · <em>1,00€</em></div>
+              <div class="buffet-item">Tortillas extra · <em>1,50€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: var(--tierra)">
+            <div class="buffet-card-icon">🥘</div>
+            <div class="buffet-card-title">Platos Clásicos</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Pork Chili · <em>16,95€</em></div>
+              <div class="buffet-item">Tender Pork Masala · <em>16,95€</em></div>
+              <div class="buffet-item">Stuffed Chicken & Feta Bake · <em>16,95€</em></div>
+              <div class="buffet-item">Chicken Gambón · <em>16,95€</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARNES -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🥩</span> Carnes & Parrilla</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: #8B4513">
+            <div class="buffet-card-icon">🥩</div>
+            <div class="buffet-card-title">Selección de Carnes</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Solomillo a la plancha · <em>18,95€</em></div>
+              <div class="buffet-item">Grilled Angus Sirloin · <em>24,95€</em></div>
+              <div class="buffet-item">Ox Fillet Grillado · <em>28,95€</em></div>
+              <div class="buffet-item">Beef Fillet Steak · <em>28,95€</em></div>
+              <div class="buffet-item">T-Bone (500–800g) · <em>29,95€</em></div>
+              <div class="buffet-item">T-Bone Steak (700–800g) · <em>37,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: #8B4513">
+            <div class="buffet-card-icon">🍖</div>
+            <div class="buffet-card-title">Chuletas & Asados</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Chuleta de cordero · <em>17,95€</em></div>
+              <div class="buffet-item">Chuletas de cerdo especiadas · <em>15,95€</em></div>
+              <div class="buffet-item">Costilla BBQ rack · <em>16,95€</em></div>
+              <div class="buffet-item">Lomo de cerdo con salsa BBQ · <em>12,95€</em></div>
+              <div class="buffet-item">Lomo de cerdo a la parrilla · <em>12,95€</em></div>
+              <div class="buffet-item">Codillo de cordero asado · <em>17,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: #8B4513">
+            <div class="buffet-card-icon">🍔</div>
+            <div class="buffet-card-title">Burgers</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Homemade Cheese Burger · <em>12,95€</em></div>
+              <div class="buffet-item">Homemade Bacon Chicken · <em>12,95€</em></div>
+              <div class="buffet-item">Rico Flamethrower Beef · <em>12,95€</em></div>
+              <div class="buffet-item">Rico Mushroom Swiss Burger · <em>12,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: #8B4513">
+            <div class="buffet-card-icon">🍗</div>
+            <div class="buffet-card-title">Platos de Carne (Menú Especial)</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Entrecot a la parrilla con ensalada, patatas y salsa pimienta</div>
+              <div class="buffet-item">Codillo de cordero asado con patatas y verduras</div>
+              <div class="buffet-item">Lomo de cerdo con salsa BBQ, ensalada y patatas</div>
+              <div class="buffet-item">Lomo de cerdo a la parrilla con ensalada y patatas</div>
+              <div class="buffet-item">Costilla BBQ con ensalada y patatas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PESCADOS -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🐟</span> Pescados & Del Mar</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: #1A6E8E">
+            <div class="buffet-card-icon">🐟</div>
+            <div class="buffet-card-title">Pescados a la Plancha</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Lubina a la plancha · <em>18,95€</em></div>
+              <div class="buffet-item">Dorada a la plancha · <em>18,95€</em></div>
+              <div class="buffet-item">Salmón a la plancha · <em>18,95€</em></div>
+              <div class="buffet-item">Grilled Turbot · <em>18,95€</em></div>
+              <div class="buffet-item">Grilled Swordfish (Murcian) · <em>15,95€</em></div>
+              <div class="buffet-item">Seabass Reboot · <em>18,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: #1A6E8E">
+            <div class="buffet-card-icon">🐠</div>
+            <div class="buffet-card-title">Más Pescados & Mariscos</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Bacalao frito tipo inglés</div>
+              <div class="buffet-item">Fish and Chips · <em>18,95€</em></div>
+              <div class="buffet-item">Ventresca de atún · <em>18,95€</em></div>
+              <div class="buffet-item">Cod con tomate y albahaca · <em>18,95€</em></div>
+              <div class="buffet-item">Cod con cebolla caramelizada · <em>18,95€</em></div>
+              <div class="buffet-item">Tandoori Grill Fish · <em>24,95€</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PASTA & PIZZA -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🍕</span> Pasta & Pizza</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: #C0392B">
+            <div class="buffet-card-icon">🍝</div>
+            <div class="buffet-card-title">Pasta</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Espagueti Boloñesa · <em>12,95€</em></div>
+              <div class="buffet-item">Penne Arabiata · <em>10,95€</em></div>
+              <div class="buffet-item">Chili Prawn Vodka Salmon · <em>14,95€</em></div>
+              <div class="buffet-item">Pampadoro Lasagna · <em>12,95€</em></div>
+              <div class="buffet-item">Espagueti con gambas al ajillo · <em>13,95€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: #C0392B">
+            <div class="buffet-card-icon">🍕</div>
+            <div class="buffet-card-title">Pizza</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Pizza Siciliana · <em>11,95€</em></div>
+              <div class="buffet-item">Chicken Hawaiian · <em>10,95€</em></div>
+              <div class="buffet-item">Mexican Pizza · <em>10,95€</em></div>
+              <div class="buffet-item">Margarita (sin gluten disponible) · <em>10,95€</em></div>
+              <div class="buffet-item">BBQ Chicken Pizza · <em>11,95€</em></div>
+              <div class="buffet-item">Chicken Tikka Pizza · <em>11,95€</em></div>
+              <div class="buffet-item">Haz tu propia pizza · <em>11,95€</em></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- COCINA HINDÚ -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>🍛</span> Cocina Hindú</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: #E67E22">
+            <div class="buffet-card-icon">🍛</div>
+            <div class="buffet-card-title">Platos Hindúes</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Pollo Korma · servido con arroz o naan</div>
+              <div class="buffet-item">Pollo Curry · servido con arroz o naan</div>
+              <div class="buffet-item">Pollo Tikka Masala · servido con arroz o naan</div>
+              <div class="buffet-item">Pollo Tikka Madras · servido con arroz o naan</div>
+              <div class="buffet-item">Pollo Tikka Jalf Areji · servido con arroz o naan</div>
+              <div class="buffet-item">Prawn Curry · servido con arroz o naan</div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: #E67E22">
+            <div class="buffet-card-icon">🫓</div>
+            <div class="buffet-card-title">Panes Hindúes & Arroz</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Garlic Naan · <em>2,95€</em></div>
+              <div class="buffet-item">Cheese Naan · <em>3,50€</em></div>
+              <div class="buffet-item">Peshawari Naan · <em>3,95€</em></div>
+              <div class="buffet-item">Arroz · <em>2,50€</em></div>
+              <div class="buffet-item">Vindaloo · plato muy picante</div>
+              <div class="buffet-item">Madras · curry con almendras</div>
+              <div class="buffet-item">Jafrezi · curry rojo y verde</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MENÚ INFANTIL -->
+      <div class="carta-section fade-up">
+        <div class="carta-section-title"><span>👶</span> Menú Infantil & Acompañamientos</div>
+        <div class="buffet-grid">
+          <div class="buffet-card fade-up" style="--card-accent: var(--verde)">
+            <div class="buffet-card-icon">👶</div>
+            <div class="buffet-card-title">Menú Infantil</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Espagueti Boloñesa</div>
+              <div class="buffet-item">Chicken Nuggets con patatas</div>
+              <div class="buffet-item">Sausage & Chips</div>
+              <div class="buffet-item">Fish Fingers con patatas o puré</div>
+              <div class="buffet-item">Burger con patatas</div>
+              <div class="buffet-item">Ham & Cheese Quesadilla</div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: var(--verde)">
+            <div class="buffet-card-icon">🍟</div>
+            <div class="buffet-card-title">Acompañamientos</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Cheese Chips · <em>3,50€</em></div>
+              <div class="buffet-item">Patatas fritas · <em>3,50€</em></div>
+              <div class="buffet-item">Mash Potatoes · <em>2,50€</em></div>
+              <div class="buffet-item">Rice · <em>2,50€</em></div>
+              <div class="buffet-item">Verduras mixtas · <em>4,50€</em></div>
+              <div class="buffet-item">Onion Rings · <em>4,50€</em></div>
+              <div class="buffet-item">Ensalada · <em>4,50€</em></div>
+            </div>
+          </div>
+          <div class="buffet-card fade-up" style="--card-accent: #9B59B6">
+            <div class="buffet-card-icon">🍮</div>
+            <div class="buffet-card-title">Postres</div>
+            <div class="buffet-items">
+              <div class="buffet-item">Tarta de queso casera</div>
+              <div class="buffet-item">Crepes con helado</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== RESEÑAS ===== -->
+  <section id="resenas">
+    <div class="container">
+      <div class="reviews-header fade-up">
+        <span class="section-tag">Lo que dicen nuestros clientes</span>
+        <h2 class="section-title">Miles de comensales <br>no pueden equivocarse</h2>
+        <div class="divider"><span>★</span></div>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card fade-up">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Excelente relación calidad-precio. Gran variedad de platillos, todos muy bien preparados. Salimos muy satisfechos y con ganas de regresar pronto."</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#C0392B,#E74C3C)">M</div>
+            <div>
+              <div class="review-name">María G.</div>
+              <div class="review-platform">Google Reviews</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card fade-up">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Todo delicioso y muy buena atención por parte del personal. Se nota el cariño con el que preparan cada platillo. ¡Un lugar que definitivamente recomiendo!"</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#27AE60,#2ECC71)">J</div>
+            <div>
+              <div class="review-name">José R.</div>
+              <div class="review-platform">Google Reviews</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card fade-up">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Ambiente muy agradable, con música en vivo que hace la experiencia aún más especial. Un lugar con alma y sabor auténtico mexicano. ¡Volveremos!"</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#D4AF37,#F0CC55)">A</div>
+            <div>
+              <div class="review-name">Ana L.</div>
+              <div class="review-platform">Google Reviews</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card fade-up">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Muy buena opción para disfrutar cocina mexicana auténtica en Los Alcázares. Precios muy accesibles y porciones generosas. Ideal para ir en familia o con amigos."</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#A0522D,#C0784D)">C</div>
+            <div>
+              <div class="review-name">Carlos M.</div>
+              <div class="review-platform">Google Reviews</div>
+            </div>
+          </div>
+        </div>
+        <div class="review-card fade-up">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"La comida está muy rica y la variedad de la carta es impresionante. Fui con mi familia y todos quedaron encantados. Las fajitas y los nachos, espectaculares."</p>
+          <div class="review-author">
+            <div class="review-avatar" style="background:linear-gradient(135deg,#1E8449,#27AE60)">L</div>
+            <div>
+              <div class="review-name">Lupita H.</div>
+              <div class="review-platform">Google Reviews</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="reviews-summary fade-up">
+        <div>
+          <div class="review-big-num">4.8</div>
+          <div class="review-big-stars">★★★★★</div>
+          <div class="review-big-label">Calificación promedio</div>
+        </div>
+        <div style="width:1px; height:80px; background:rgba(212,175,55,0.2);"></div>
+        <div>
+          <div class="review-big-num">500+</div>
+          <div class="review-big-label">Reseñas verificadas</div>
+        </div>
+        <div style="width:1px; height:80px; background:rgba(212,175,55,0.2);"></div>
+        <div>
+          <div class="review-big-num">98%</div>
+          <div class="review-big-label">Clientes satisfechos</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DIFERENCIACION ===== -->
+  <section id="diferenciacion">
+    <div class="container">
+      <div class="dif-inner">
+        <div class="dif-text fade-up">
+          <span class="section-tag" style="color: var(--dorado-light)">Por qué elegirnos</span>
+          <h2 class="section-title">No es solo comida.<br>Es una <em>experiencia</em>.</h2>
+          <p>En Murcia hay muchos sitios donde comer. Pero pocos lugares donde te sientas en casa, comas auténtica cocina mexicana y salgas con ganas de volver mañana mismo.</p>
+        </div>
+        <div class="dif-list fade-up">
+          <div class="dif-item">
+            <div class="dif-icon">🍽️</div>
+            <div>
+              <div class="dif-item-title">Menú completo a precio fijo</div>
+              <div class="dif-item-desc">Disfruta una experiencia gastronómica completa sin sorpresas en la cuenta. Precio claro y justo.</div>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-icon">👨‍🍳</div>
+            <div>
+              <div class="dif-item-title">Recetas auténticas de México</div>
+              <div class="dif-item-desc">No es comida de cadena. Cada platillo sigue recetas tradicionales con ingredientes locales frescos.</div>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-icon">🎵</div>
+            <div>
+              <div class="dif-item-title">Música en vivo y ambiente festivo</div>
+              <div class="dif-item-desc">Comer aquí es una experiencia completa. La música le da vida al lugar y hace que cada visita sea memorable.</div>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-icon">🏠</div>
+            <div>
+              <div class="dif-item-title">Comedor privado para grupos</div>
+              <div class="dif-item-desc">Reuniones de trabajo, cumpleaños o celebraciones familiares — tenemos el espacio para tu ocasión especial.</div>
+            </div>
+          </div>
+          <div class="dif-item">
+            <div class="dif-icon">💰</div>
+            <div>
+              <div class="dif-item-title">La mejor relación calidad-precio</div>
+              <div class="dif-item-desc">Desde 20 € por persona. Calidad y abundancia que justifican cada peso invertido.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CUSTOMER JOURNEY ===== -->
+  <section id="recorrido">
+    <div class="container">
+      <div class="journey-header fade-up">
+        <span class="section-tag">Así funciona</span>
+        <h2 class="section-title">Tu experiencia en Rico Mexicano,<br>paso a paso</h2>
+      </div>
+      <div class="journey-steps">
+        <div class="step fade-up">
+          <div class="step-num">1</div>
+          <div class="step-icon">📞</div>
+          <div class="step-title">Reserva tu mesa</div>
+          <div class="step-desc">Llámanos o mándanos un WhatsApp para apartar tu lugar, especialmente en fines de semana.</div>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">2</div>
+          <div class="step-icon">🚗</div>
+          <div class="step-title">Llega y ubícate</div>
+          <div class="step-desc">Estamos en Calle Mayor, Los Alcázares. Fácil de encontrar, en pleno centro del pueblo.</div>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">3</div>
+          <div class="step-icon">🍽️</div>
+          <div class="step-title">Disfruta la carta</div>
+          <div class="step-desc">Explora nuestra carta con más de 40 platillos tradicionales mexicanos preparados al momento.</div>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">4</div>
+          <div class="step-icon">🎵</div>
+          <div class="step-title">Vive el ambiente</div>
+          <div class="step-desc">Música en vivo, conversación y risas. Aquí el tiempo vuela cuando uno está a gusto.</div>
+        </div>
+        <div class="step fade-up">
+          <div class="step-num">5</div>
+          <div class="step-icon">❤️</div>
+          <div class="step-title">Sal con ganas de volver</div>
+          <div class="step-desc">Más del 90% de nuestros clientes regresan. Tú también querrás hacerlo.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== UBICACION ===== -->
+  <section id="ubicacion">
+    <div class="container">
+      <div class="ubi-grid">
+        <div class="ubi-text fade-up">
+          <span class="section-tag">¿Dónde estamos?</span>
+          <h2 class="section-title section-title">Ven a visitarnos</h2>
+          <div class="ubi-detail">
+            <div class="ubi-detail-icon">📍</div>
+            <div>
+              <div class="ubi-detail-label">Dirección</div>
+              <div class="ubi-detail-value">C. Mayor, s/n<br>Los Alcázares, Murcia, España</div>
+            </div>
+          </div>
+          <div class="ubi-detail">
+            <div class="ubi-detail-icon">📞</div>
+            <div>
+              <div class="ubi-detail-label">Teléfono</div>
+              <div class="ubi-detail-value"><a href="tel:+34631049004" style="color:var(--dorado)">+34 631 04 90 04</a></div>
+            </div>
+          </div>
+          <div class="ubi-detail">
+            <div class="ubi-detail-icon">⏰</div>
+            <div>
+              <div class="ubi-detail-label">Horario de servicio</div>
+              <div class="ubi-detail-value">Lunes a Domingo<br><strong style="color:var(--dorado)">Abierto hasta las 23:00 hrs</strong></div>
+            </div>
+          </div>
+          <div class="ubi-detail">
+            <div class="ubi-detail-icon">💵</div>
+            <div>
+              <div class="ubi-detail-label">Precio por persona</div>
+              <div class="ubi-detail-value"><strong style="color:var(--rojo)">20 – 30 €</strong> · por persona</div>
+            </div>
+          </div>
+          <a href="https://maps.google.com/?q=Los+Alcazares+Murcia+Rico+Mexicano" target="_blank" class="btn-secondary" style="margin-top:8px; display:inline-flex;">
+            🗺️ Abrir en Google Maps
+          </a>
+        </div>
+        <div class="ubi-map fade-up">
+          <div class="ubi-map-overlay">📍 Rico Mexicano</div>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3148.5!2d-0.851!3d37.743!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzfCsDQ0JzM0LjgiTiAwwrA1MScwNC4wIlc!5e0!3m2!1ses!2ses!4v1620000000001!5m2!1ses!2ses"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Ubicación Rico Mexicano"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CTA FINAL ===== -->
+  <section id="cta-final">
+    <div class="container">
+      <div class="cta-inner fade-up">
+        <span class="section-tag">Reserva ahora</span>
+        <h2 class="cta-title">La mejor cocina<br>mexicana en <span>Murcia</span></h2>
+        <p class="cta-subtitle">
+          No dejes pasar más tiempo. Llama ahora, reserva tu mesa y vive la experiencia que ya conocen en Los Alcázares.
+        </p>
+        <div class="cta-actions">
+          <a href="tel:+34631049004" class="btn-xl btn-xl-red">
+            📞 Llamar ahora
+          </a>
+          <a href="https://wa.me/34631049004?text=Hola,%20me%20gustar%C3%ADa%20reservar%20una%20mesa%20en%20Rico%20Mexicano" target="_blank" class="btn-xl btn-xl-gold">
+            💬 WhatsApp
+          </a>
+        </div>
+        <p class="cta-hours">⏰ Abierto todos los días hasta las 23:00 hrs · Desde 20 €</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="footer-brand-name">Rico <span>Mexicano</span></div>
+          <p class="footer-tagline">
+            El restaurante mexicano más querido de Los Alcázares. Sabor auténtico, 
+            ambiente inigualable y el mejor precio de Murcia.
+          </p>
+          <div class="footer-socials">
+            <a href="#" class="social-btn" title="Facebook">f</a>
+            <a href="#" class="social-btn" title="Instagram">📷</a>
+            <a href="https://wa.me/34631049004" class="social-btn" title="WhatsApp" target="_blank">💬</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Navegación</div>
+          <ul>
+            <li><a href="#experiencia">Nosotros</a></li>
+            <li><a href="#buffet">Nuestra Carta</a></li>
+            <li><a href="#resenas">Reseñas</a></li>
+            <li><a href="#diferenciacion">Por qué elegirnos</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Contacto</div>
+          <div class="footer-contact-item">
+            <span>📍</span>
+            <span>C. Mayor, Los Alcázares, Murcia, España</span>
+          </div>
+          <div class="footer-contact-item">
+            <span>📞</span>
+            <a href="tel:+34631049004" style="color:var(--dorado)">+34 631 04 90 04</a>
+          </div>
+          <div class="footer-contact-item">
+            <span>⏰</span>
+            <span>Todos los días<br>hasta las 23:00 hrs</span>
+          </div>
+          <div class="footer-contact-item">
+            <span>💰</span>
+            <span>Buffet desde 20 €</span>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Rico Mexicano. Todos los derechos reservados. Los Alcázares, Murcia, España.</p>
+        <div class="footer-bottom-badge">
+          <span>✓</span> Restaurante verificado en Google
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== WHATSAPP BUTTON ===== -->
+  <a id="wa-btn" href="https://wa.me/34631049004?text=Hola,%20me%20gustar%C3%ADa%20reservar%20una%20mesa%20en%20Rico%20Mexicano" target="_blank" aria-label="Contactar por WhatsApp">
+    <div class="wa-tooltip">Escríbenos ahora</div>
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ===== JAVASCRIPT ===== -->
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
+    });
+
+    // Mobile menu
+    function openMenu() { document.getElementById('mobileMenu').classList.add('open'); document.body.style.overflow='hidden'; }
+    function closeMenu() { document.getElementById('mobileMenu').classList.remove('open'); document.body.style.overflow=''; }
+
+    // Scroll fade-up animation
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // Stagger delay for sibling elements
+          const siblings = entry.target.parentElement.querySelectorAll('.fade-up');
+          let delay = 0;
+          siblings.forEach((el, idx) => {
+            if (el === entry.target) delay = idx * 80;
+          });
+          setTimeout(() => entry.target.classList.add('visible'), delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
